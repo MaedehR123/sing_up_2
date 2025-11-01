@@ -79,3 +79,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize
     updateTranslations();
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // اینجا کد زبان و فرم لاگین است
+    updateTranslations();
+});
+
+// 👇 اینجا بگذار:
+document.addEventListener('click', function(e) {
+    const signUpLink = e.target.closest('[data-i18n="signUp"]');
+    if (signUpLink) {
+        e.preventDefault();
+        alert('در حال نمایش فرم ثبت‌نام ...');
+    }
+});

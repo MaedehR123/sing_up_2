@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up | PersiaLingua</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+ <script src="components/language-switcher.js"></script>
+
+</head>
+<body class="bg-gradient-to-br from-dark to-gray-900 text-light min-h-screen overflow-x-hidden flex items-center justify-center">
+
+  <div class="max-w-md w-full bg-white/10 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden border border-white/20 transition-all duration-500 hover:shadow-primary/30 hover:border-primary/50 p-8">
+
+    <div class="text-center mb-8">
+      <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary" data-i18n="signUpTitle">
+        Create an Account
+      </h2>
+      <p class="text-gray-300 mt-2" data-i18n="signUpSubtitle">
+        Please enter your details
+      </p>
+    </div>
+
+    <!-- Sign Up Form -->
+    <form id="signup-form" class="space-y-4">
+      <div class="form-group">
+        <input type="text" placeholder="Full Name" required class="w-full p-3 rounded-md bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary">
+      </div>
+      <div class="form-group">
+        <input type="email" placeholder="Email Address" required class="w-full p-3 rounded-md bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary">
+      </div>
+      <div class="form-group">
+        <input type="password" placeholder="Password" required class="w-full p-3 rounded-md bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary">
+      </div>
+      <button type="submit" class="w-full py-3 bg-gradient-to-r from-primary to-secondary rounded-md font-semibold">
+        Sign Up
+      </button>
+    </form>
+
+    <p class="text-gray-300 mt-4 text-center" data-i18n="haveAccount">
+      Already have an account?
+      <a href="index.html" class="text-primary hover:text-secondary font-medium transition-colors">Sign In</a>
+    </p>
+  </div>
+
+  <script>
+    // فرم ثبت‌نام ساده با alert
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Sign Up successful!');
+      this.reset();
+    });
+
+    // ترجمه انگلیسی/فارسی
+    const translations = {
+      en: {
+        signUpTitle: "Create an Account",
+        signUpSubtitle: "Please enter your details",
+        haveAccount: "Already have an account?"
+      },
+      fa: {
+        signUpTitle: "ایجاد حساب کاربری",
+        signUpSubtitle: "لطفاً اطلاعات خود را وارد کنید",
+        haveAccount: "قبلاً حساب کاربری دارید؟"
+      }
+    };
+
+    let currentLang = 'en';
+
+    function updateTranslations() {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        el.textContent = translations[currentLang][key];
+      });
+      document.documentElement.dir = currentLang === 'fa' ? 'rtl' : 'ltr';
+    }
+
+    // اگر language-switcher استفاده می‌کنید
+    document.addEventListener('languageChange', (e) => {
+      currentLang = e.detail.lang;
+      updateTranslations();
+    });
+
+    updateTranslations();
+  </script>
+
+</body>
+</html>
