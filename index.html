@@ -1,67 +1,104 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PersiaLingua | Bilingual Portal</title>
+    <!-- 🔹 تنظیمات اولیه صفحه -->
+    <meta charset="UTF-8"> <!-- تعیین نوع کاراکترها (UTF-8 برای پشتیبانی از فارسی و انگلیسی) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- تنظیم مقیاس برای موبایل -->
+    <title>PersiaLingua | Bilingual Portal</title> <!-- عنوان صفحه در مرورگر -->
+
+    <!-- 🔹 لینک به فایل CSS اختصاصی -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- 🔹 فراخوانی کتابخانه TailwindCSS از CDN برای طراحی سریع و مدرن -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 🔹 بارگذاری آیکون‌های Feather (آیکون‌های سبک و واکنش‌گرا) -->
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="components/language-switcher.js"></script>
-    <script src="components/auth-form.js"></script>
-    <script src="components/particles.js"></script>
-    
+
+    <!-- 🔹 فایل‌های جاوااسکریپت اجزای سفارشی پروژه -->
+    <script src="components/language-switcher.js"></script> <!-- مولفه‌ی تعویض زبان -->
+    <script src="components/auth-form.js"></script> <!-- فرم احراز هویت (ورود) -->
+    <script src="components/particles.js"></script> <!-- پس‌زمینه ذرات متحرک -->
+
+    <!-- 🔹 تنظیم رنگ‌های سفارشی Tailwind -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#8B5CF6',
-                        secondary: '#EC4899',
-                        dark: '#1E293B',
-                        light: '#F8FAFC'
+                        primary: '#8B5CF6',   // رنگ اصلی (بنفش ملایم)
+                        secondary: '#EC4899', // رنگ ثانویه (صورتی)
+                        dark: '#1E293B',      // رنگ پس‌زمینه تیره
+                        light: '#F8FAFC'      // رنگ روشن برای نوشته‌ها
                     }
                 }
             }
         }
     </script>
 </head>
+
 <body class="bg-gradient-to-br from-dark to-gray-900 text-light min-h-screen overflow-x-hidden">
+    <!-- 🔹 کامپوننت ذرات پس‌زمینه -->
     <particles-background></particles-background>
-    
+
+    <!-- 🔹 بخش اصلی محتوا -->
     <div class="container mx-auto px-4 py-12 relative z-10">
+        
+        <!-- 🔸 نوار بالایی شامل لوگو و انتخاب زبان -->
         <div class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">PersiaLingua</h1>
+            <!-- عنوان سایت با افکت گرادیان رنگ -->
+            <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+                PersiaLingua
+            </h1>
+
+            <!-- سوئیچر زبان (دکمه یا منوی انتخاب زبان) -->
             <language-switcher></language-switcher>
         </div>
 
+        <!-- 🔸 کارت مرکزی شامل فرم ورود -->
         <div class="max-w-md mx-auto bg-white/10 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden border border-white/20 transition-all duration-500 hover:shadow-primary/30 hover:border-primary/50">
+            
+            <!-- محتوای داخلی کارت -->
             <div class="px-8 py-10">
+                
+                <!-- بخش خوش‌آمدگویی -->
                 <div class="text-center mb-8">
-                    <h2 class="text-2xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary" data-i18n="welcome">Welcome Back</h2>
-                    <p class="text-gray-300 mt-2" data-i18n="subtitle">Please enter your details</p>
+                    <h2 class="text-2xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary" data-i18n="welcome">
+                        Welcome Back
+                    </h2>
+                    <p class="text-gray-300 mt-2" data-i18n="subtitle">
+                        Please enter your details
+                    </p>
                 </div>
 
+                <!-- 🔹 فرم ورود (auth-form یک کامپوننت جاوااسکریپتی است) -->
                 <auth-form></auth-form>
 
+                <!-- 🔹 بخش پایینی فرم (لینک ثبت‌نام) -->
                 <div class="mt-6 text-center">
                     <p class="text-gray-300" data-i18n="noAccount">
                         Don't have an account? 
+                        <!-- لینک ثبت‌نام با افکت رنگی -->
+                        <!-- نسخه اصلی کامنت شده برای تست -->
                         <!-- <a href="#" class="text-primary hover:text-secondary font-medium transition-colors" data-i18n="signUp">Sign up</a> -->
-                        <a href="signup.html" class="text-primary hover:text-secondary font-medium transition-colors" data-i18n="signUp">
-                         Sign up
-                        </a>
 
+                        <!-- نسخه فعال لینک ثبت‌نام (انتقال به signup.html) -->
+                        <a href="signup.html" class="text-primary hover:text-secondary font-medium transition-colors" data-i18n="signUp">
+                            Sign up
+                        </a>
                     </p>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- 🔹 فایل جاوااسکریپت اصلی سایت -->
     <script src="script.js"></script>
+
+    <!-- 🔹 فعال‌سازی آیکون‌های Feather -->
     <script>
-        feather.replace();
+        feather.replace(); // جایگزینی تگ‌های <i data-feather> با SVG آیکون واقعی
     </script>
 </body>
 </html>
