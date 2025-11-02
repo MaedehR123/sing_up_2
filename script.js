@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 🔹 تعریف ترجمه‌ها برای دو زبان: انگلیسی (en) و فارسی (fa)
+    // 🔹 ترجمه‌ها برای دو زبان: انگلیسی (en) و فارسی (fa)
     const translations = {
         en: {
             welcome: "Welcome Back",
@@ -25,80 +25,68 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // 🔹 زبان پیش‌فرض را انگلیسی قرار می‌دهد
+    // 🔸 زبان پیش‌فرض
     let currentLang = 'en';
 
-    // 🔹 تابعی برای به‌روزرسانی متن‌ها طبق زبان انتخاب‌شده
+    // 🔹 تابع بروزرسانی ترجمه‌ها
     function updateTranslations() {
-        // برای هر المنتی که خاصیت data-i18n دارد، متن مربوطه را از ترجمه‌ها جایگزین می‌کند
-        document.querySelectorAll('[data-i18n]').forEach(element => {
-            const key = element.getAttribute('data-i18n');
-            element.textContent = translations[currentLang][key];
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[currentLang][key]) {
+                el.textContent = translations[currentLang][key];
+            }
         });
-
-        // 🔸 تنظیم جهت متن (چپ‌چین برای انگلیسی، راست‌چین برای فارسی)
         document.documentElement.dir = currentLang === 'fa' ? 'rtl' : 'ltr';
     }
 
-    // 🔹 گوش دادن به کلیک‌ها برای تعویض زبان
-    document.addEventListener('click', function(e) {
-        // اگر روی المانی با data-lang کلیک شود، زبان را تغییر می‌دهد
-        if (e.target.closest('[data-lang]')) {
-            currentLang = e.target.closest('[data-lang]').getAttribute('data-lang');
-            updateTranslations(); // و سپس متن‌ها را به‌روزرسانی می‌کند
+    // 🔹 تغییر زبان با کلیک روی دکمه یا المان data-lang
+    document.addEventListener('click', e => {
+        const langBtn = e.target.closest('[data-lang]');
+        if (langBtn) {
+            currentLang = langBtn.getAttribute('data-lang');
+            updateTranslations();
         }
     });
 
-    // 🔹 اعتبارسنجی فرم ورود (Login)
-    document.addEventListener('submit', function(e) {
-        // اگر فرم دارای selector به نام auth-form باشد
+    // 🔹 اعتبارسنجی فرم ورود (auth-form)
+    document.addEventListener('submit', e => {
         if (e.target.matches('auth-form')) {
-            e.preventDefault(); // از ارسال فرم جلوگیری می‌کند
-            const form = e.target;
-            const email = form.querySelector('input[type="email"]').value;
-            const password = form.querySelector('input[type="password"]').value;
+            e.preventDefault();
 
-            // بررسی اینکه ایمیل و پسورد پر شده باشند
+            const form = e.target;
+            const email = form.querySelector('input[type="email"]')?.value.trim();
+            const password = form.querySelector('input[type="password"]')?.value.trim();
+            const errorElement = form.querySelector('.error-message');
+
             if (!email || !password) {
-                // نمایش پیغام خطا به زبان فعلی
-                const errorElement = form.querySelector('.error-message');
-                errorElement.textContent = currentLang === 'en' 
-                    ? "Please fill in all fields" 
+                errorElement.textContent = currentLang === 'en'
+                    ? "Please fill in all fields"
                     : "لطفاً تمام فیلدها را پر کنید";
                 errorElement.classList.remove('hidden');
                 return;
             }
 
-            // شبیه‌سازی موفقیت ورود (Login)
+            // شبیه‌سازی ورود موفق
+            form.classList.add('animate-pulse');
             setTimeout(() => {
-                form.classList.add('animate-pulse'); // انیمیشن کوتاه
-                setTimeout(() => {
-                    alert(currentLang === 'en' 
-                        ? "Login successful!" 
-                        : "ورود با موفقیت انجام شد!");
-                    form.classList.remove('animate-pulse');
-                }, 800);
-            }, 500);
+                alert(currentLang === 'en'
+                    ? "Login successful!"
+                    : "ورود با موفقیت انجام شد!");
+                form.classList.remove('animate-pulse');
+            }, 800);
         }
     });
 
-    // 🔹 در هنگام بارگذاری صفحه، متن‌ها را به‌روزرسانی کن
+    // 🔹 مدیریت کلیک روی لینک "Sign up"
+    document.addEventListener('click', e => {
+        const signUpLink = e.target.closest('[data-i18n="signUp"]');
+        if (signUpLink) {
+            e.preventDefault();
+            // انتقال به صفحه ثبت‌نام
+            window.location.href = "signup.html";
+        }
+    });
+
+    // 🔹 در هنگام بارگذاری صفحه ترجمه‌ها را اعمال کن
     updateTranslations();
-});
-
-
-// 🔸 بار دوم برای اطمینان از به‌روزرسانی هنگام آماده شدن DOM
-document.addEventListener('DOMContentLoaded', function() {
-    // اینجا کد زبان و فرم لاگین است
-    updateTranslations();
-});
-
-// 👇 این قسمت مخصوص کلیک روی لینک "ثبت نام" است
-document.addEventListener('click', function(e) {
-    // پیدا کردن لینک ثبت‌نام با data-i18n="signUp"
-    const signUpLink = e.target.closest('[data-i18n="signUp"]');
-    if (signUpLink) {
-        e.preventDefault(); // جلوگیری از رفتار پیش‌فرض لینک
-        alert('در حال نمایش فرم ثبت‌نام ...'); // نمایش پیام برای تست
-    }
 });
